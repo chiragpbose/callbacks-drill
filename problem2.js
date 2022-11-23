@@ -21,42 +21,46 @@
 */
 let fs = require("fs");
 
-fs.readFile(
-	"./data/lipsum.txt",
-	"utf-8",
-	(err, data) => console.log("file read \n") 
-);
-
-fs.readFile("./data/lipsum.txt", "utf-8", (err, data) => {
-	fs.writeFile("./data/LIPSUM.txt", data.toUpperCase(), (err) => {
-		console.log("changed to uppercase");
+let problem2 = () => {
+	fs.readFile("./data/lipsum.txt", "utf-8", (err, data) => {
+		console.log(data);
+		console.log("file read \n");
 	});
-});
 
-fs.readFile("./data/LIPSUM.txt", "utf-8", (err, data) => {
-	let arr = data.toLowerCase().split(". ");
-	console.log(arr);
-	let result = arr.sort().reduce((text, word) => {
-		text = text + "\n" + word;
-		return text;
-	}, "");
-
-	fs.writeFile("./data/filenames.txt", result, (err) => {
-		console.log("changed to lowercase and split to lowercase and sorted");
+	fs.readFile("./data/lipsum.txt", "utf-8", (err, data) => {
+		fs.writeFile("./data/LIPSUM.txt", data.toUpperCase(), (err) => {
+			console.log("changed to uppercase");
+		});
 	});
-});
-fs.writeFile("./data/filenames.txt", "lipsumLower", (err) => {
-	console.log(" Stored the name of the new file in filenames.txt");
-});
-fs.readFile("./data/filenames.txt", "utf-8", (err, data) => {
-	if (err) console.log("Error");
-	else {
-		console.log("read filenames.txt");
-	}
-	fs.unlink("data/filenames.txt", (err) => {
+
+	fs.readFile("./data/LIPSUM.txt", "utf-8", (err, data) => {
+		let arr = data.toLowerCase().split(". ");
+		console.log(arr);
+		let result = arr.sort().reduce((text, word) => {
+			text = text + "\n" + word;
+			return text;
+		}, "");
+
+		fs.writeFile("./data/filenames.txt", result, (err) => {
+			console.log("changed to lowercase and split to lowercase and sorted");
+		});
+	});
+	fs.writeFile("./data/filenames.txt", "lipsumLower", (err) => {
+		console.log(" Stored the name of the new file in filenames.txt");
+	});
+	fs.readFile("./data/filenames.txt", "utf-8", (err, data) => {
 		if (err) console.log("Error");
 		else {
-			console.log("filenames.txt has been deleted");
+			console.log("read filenames.txt");
 		}
+		fs.unlink("data/filenames.txt", (err) => {
+			if (err) console.log("Error");
+			else {
+				console.log("filenames.txt has been deleted");
+			}
+		});
 	});
-});
+	return 1;
+};
+// problem2();
+module.exports = problem2;
